@@ -1,0 +1,57 @@
+﻿@model StackUnderflow.Data.Entities.Response
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Response</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Body)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Body)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Votes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Votes)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsSolution)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsSolution)
+        </dd>
+    </dl>
+    @if (Model.Comments.Count > 0)
+    {
+        <ul class="searchList">
+
+            @foreach (var comment in Model.Comments)
+            {
+                <li>
+                    @comment.Author<br />
+                    @comment.Body<br />
+                </li>
+            }
+
+        </ul>
+    }
+</div>
+<div>
+    @Html.ActionLink("Create Comment", "Create", "Comments", new { id = Model.Id }) |
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
