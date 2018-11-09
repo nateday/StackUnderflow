@@ -6,8 +6,10 @@
 
 <h2>Details</h2>
 
+@Html.ActionLink("Back", "Details", "Questions", new { id = Model.QuestionId }, null)
+
 <div>
-    <h4>Response</h4>
+    <h3>Response</h3>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -35,23 +37,25 @@
             @Html.DisplayFor(model => model.IsSolution)
         </dd>
     </dl>
-    @if (Model.Comments.Count > 0)
+    @Html.ActionLink("Up Vote", "UpVote", "Responses", new { id = Model.Id }, null) |
+    @Html.ActionLink("Down Vote", "DownVote", "Responses", new { id = Model.Id }, null) |
+    @Html.ActionLink("Create Comment", "Create", "Comments", new { id = Model.Id }, null) |
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+</div>
+
+@if (Model.Comments.Count > 0)
+{
+<div>
+    <h4>Comments</h4>
+    <hr />
+    @foreach (var comment in Model.Comments)
     {
-        <ul class="searchList">
-
-            @foreach (var comment in Model.Comments)
-            {
-                <li>
-                    @comment.Author<br />
-                    @comment.Body<br />
-                </li>
-            }
-
-        </ul>
+        <dl class="dl-horizontal">
+            <dt>Author</dt>
+            <dd>@comment.Author</dd>
+            <dt>Body</dt>
+            <dd>@comment.Body</dd>
+        </dl>
     }
 </div>
-<div>
-    @Html.ActionLink("Create Comment", "Create", "Comments", new { id = Model.Id }) |
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+}

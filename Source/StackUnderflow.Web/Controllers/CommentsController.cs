@@ -41,7 +41,6 @@ namespace StackUnderflow.Web.Controllers
         [Authorize]
         public IActionResult Create(string id)
         {
-            ViewBag.ResponseId = id;
             return View();
         }
 
