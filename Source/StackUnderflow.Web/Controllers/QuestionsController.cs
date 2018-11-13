@@ -107,7 +107,7 @@ namespace StackUnderflow.Web.Controllers
 
             var question = _service.UpVote(id);
 
-            return View(question);
+            return PartialView(question);
         }
 
         // POST: Questions/DownVote/5
@@ -125,7 +125,7 @@ namespace StackUnderflow.Web.Controllers
 
             var question = _service.DownVote(id);
 
-            return View(question);
+            return RedirectToAction("Details", id);
         }
 
         // GET: Questions/Delete/5

@@ -95,5 +95,27 @@ namespace StackUnderflow.Business
             _context.Responses.Remove(response);
             _context.SaveChanges();
         }
+
+        public Response UpVote(string id)
+        {
+            var response = GetResponseById(new Guid(id));
+
+            response.Votes = response.Votes + 1;
+
+            UpdateResponse(response);
+
+            return response;
+        }
+
+        public Response DownVote(string id)
+        {
+            var response = GetResponseById(new Guid(id));
+
+            response.Votes = response.Votes - 1;
+
+            UpdateResponse(response);
+
+            return response;
+        }
     }
 }

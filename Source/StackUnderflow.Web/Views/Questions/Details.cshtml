@@ -33,13 +33,13 @@
         <dt>
             @Html.DisplayNameFor(model => model.Votes)
         </dt>
-        <dd>
+        <dd id="votes">
             @Html.DisplayFor(model => model.Votes)
         </dd>
     </dl>
     <div>
-        @Html.ActionLink("Up Vote", "UpVote", "Questions", new { id = Model.Id }, null) |
-        @Html.ActionLink("Down Vote", "DownVote", "Questions", new { id = Model.Id }, null) |
+        <button id="upVote">Up Vote</button> |
+        <button id="downVote">Down Vote</button> |
         @Html.ActionLink("Create Response", "Create", "Responses", new { id = Model.Id }, null) |
         <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
     </div>
@@ -63,3 +63,42 @@
     }
 </div>
 }
+
+<script src="https://ajax.microsoft.com/ajax/jquery/jquery-1.10.2.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        $("#upVote").on("click", function () {
+
+            var postData = {
+                __RequestVerificationToken: $('[name= "__RequestVerificationToken"]').val(),
+                id: "@Model.Id"
+            };
+
+            $.ajax({
+                url: "/Questions/UpVote/@Model.Id",
+                type: "POST",
+                data: postData
+            })
+            .done(function(partialViewResult) {
+                $("#votes").html(partialViewResult.Votes);
+            });
+        });
+
+        $("#downVote").on("click", function () {
+
+            var postData = {
+                __RequestVerificationToken: $('[name= "__RequestVerificationToken"]').val(),
+                id: "@Model.Id"
+            };
+
+            $.ajax({
+                url: "/Questions/DownVote/@Model.Id",
+                type: "POST",
+                data: postData
+            })
+            .done(function(partialViewResult) {
+                $("#votes").html(partialViewResult.Votes);
+            });
+        });
+    });
+</script>

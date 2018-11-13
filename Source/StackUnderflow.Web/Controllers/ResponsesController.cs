@@ -97,6 +97,42 @@ namespace StackUnderflow.Web.Controllers
             return View(updatedResponse);
         }
 
+        // POST: Questions/UpVote/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost("Responses/UpVote/{id}")]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpVote(string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                throw new Exception("Question is not valid.");
+            }
+
+            var question = _service.UpVote(id);
+
+            return Ok(question);
+        }
+
+        // POST: Questions/DownVote/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost("Responses/DownVote/{id}")]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public IActionResult DownVote(string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                throw new Exception("Question is not valid.");
+            }
+
+            var question = _service.DownVote(id);
+
+            return Ok(question);
+        }
+
         // GET: Responses/Delete/5
         [Authorize]
         public IActionResult Delete(Guid id)
